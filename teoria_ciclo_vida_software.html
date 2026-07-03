@@ -152,13 +152,25 @@
     border-top:1px solid var(--borde);
     padding-top:10px;
   }
+  .volver{
+    display:inline-block;
+    margin-bottom:16px;
+    font-size:13px;
+    color:var(--azul);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .volver:hover{text-decoration:underline;}
   @media print{
     body{padding:12px 20px;}
     .etapa{break-inside:avoid;}
+    .volver{display:none;}
   }
 </style>
 </head>
 <body>
+
+  <a class="volver" href="index.html">← Volver al inicio</a>
 
   <div class="header">
     <h1>📋 Ciclo de Vida del Software</h1>
