@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>TP N°3 - Etapa 4: Desarrollo del Software</title>
+<style>
+  :root{
+    --violeta:#7b4fa0;
+    --azul:#2c3e91;
+    --fondo:#fbfaf7;
+    --borde:#e4e1da;
+    --texto:#2b2b2b;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--fondo);
+    color:var(--texto);
+    margin:0;
+    padding:30px 40px;
+    line-height:1.55;
+  }
+  .header{
+    text-align:center;
+    border-bottom:3px solid var(--violeta);
+    padding-bottom:14px;
+    margin-bottom:20px;
+  }
+  .header h1{margin:0 0 4px 0;color:var(--violeta);font-size:24px;}
+  .header p{margin:0;color:#666;font-size:13px;}
+  .datos{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    background:#f4eef9;
+    border:1px solid #e0d0ec;
+    border-radius:8px;
+    padding:12px 18px;
+    margin-bottom:20px;
+    font-size:13px;
+  }
+  .datos div{flex:1 1 150px;}
+  .datos strong{color:var(--violeta);}
+  .campo{
+    border-bottom:1px solid #999;
+    display:inline-block;
+    min-width:160px;
+  }
+  .objetivo{
+    background:#eef1fb;
+    border-left:5px solid var(--azul);
+    padding:12px 16px;
+    border-radius:6px;
+    margin-bottom:20px;
+    font-size:13.5px;
+  }
+  .contexto{
+    background:#fdf3e9;
+    border:1px solid #f0d4b0;
+    border-radius:8px;
+    padding:12px 16px;
+    margin-bottom:20px;
+    font-size:13.5px;
+  }
+  .contexto h3{margin:0 0 6px 0;color:#e0692f;font-size:14.5px;}
+  h2.section{
+    color:var(--violeta);
+    border-bottom:2px solid #e4dcee;
+    padding-bottom:6px;
+    margin-top:26px;
+    font-size:18px;
+  }
+  .consigna{
+    background:#fff;
+    border:1px solid var(--borde);
+    border-left:6px solid var(--azul);
+    border-radius:8px;
+    padding:14px 18px;
+    margin-bottom:12px;
+  }
+  .consigna .titulo{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:6px;
+  }
+  .consigna .titulo h3{margin:0;font-size:15px;color:var(--texto);}
+  .consigna .puntos{
+    background:var(--azul);
+    color:#fff;
+    font-size:11.5px;
+    font-weight:700;
+    padding:3px 10px;
+    border-radius:10px;
+    white-space:nowrap;
+  }
+  .consigna p{margin:4px 0;font-size:13.5px;}
+  .consigna ul{margin:6px 0 4px 18px;padding:0;font-size:13.5px;}
+  .consigna li{margin-bottom:4px;}
+  .ia-nota{
+    background:#eef7ea;
+    border:1px solid #cfe6c3;
+    border-radius:8px;
+    padding:12px 16px;
+    margin:20px 0;
+    font-size:13px;
+  }
+  .ia-nota h3{margin:0 0 6px 0;color:#4c8a2e;font-size:14px;}
+  table.rubrica{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+    font-size:12.5px;
+  }
+  table.rubrica th, table.rubrica td{
+    border:1px solid var(--borde);
+    padding:7px 10px;
+    text-align:left;
+  }
+  table.rubrica th{
+    background:#f4eef9;
+    color:var(--violeta);
+  }
+  .entrega{
+    background:#f7f6f2;
+    border:1px dashed #bbb;
+    border-radius:8px;
+    padding:12px 18px;
+    margin-top:22px;
+    font-size:13px;
+  }
+  .footer{
+    margin-top:26px;
+    text-align:center;
+    font-size:11.5px;
+    color:#999;
+    border-top:1px solid var(--borde);
+    padding-top:10px;
+  }
+  @media print{
+    body{padding:12px 20px;}
+    .consigna{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>💻 TP N°3 — Etapa 4: Desarrollo del Software</h1>
+    <p>Desarrollo de Sistemas Digitales · 5° Año · Prof. Humberto Montaldi · 2026</p>
+  </div>
+
+  <div class="datos">
+    <div><strong>Alumno/a:</strong> <span class="campo">&nbsp;</span></div>
+    <div><strong>Curso:</strong> <span class="campo">&nbsp;</span></div>
+    <div><strong>Fecha:</strong> <span class="campo">&nbsp;</span></div>
+    <div><strong>Puntaje:</strong> ___ / 25</div>
+  </div>
+
+  <div class="objetivo">
+    <strong>Objetivo:</strong> Programar la interfaz y la funcionalidad del sistema que diseñaron en el TP N°2,
+    siguiendo el prototipo aprobado. Duración estimada: 30 minutos.
+  </div>
+
+  <div class="contexto">
+    <h3>🔗 Contexto</h3>
+    Este TP corresponde a la <strong>Etapa 4 — Desarrollo</strong> del ciclo de vida del software: acá escribimos el
+    código del sistema según el diseño ya aprobado en el TP N°2. Recordá que esta es la etapa que <em>menos</em>
+    defectos genera cuando el análisis de requisitos y el prototipo se hicieron bien.
+  </div>
+
+  <h2 class="section">📝 Consignas</h2>
+
+  <div class="consigna">
+    <div class="titulo">
+      <h3>1. Recuperar el diseño</h3>
+      <span class="puntos">5 pts</span>
+    </div>
+    <p>Antes de programar, revisá el prototipo y las pantallas que hiciste en el TP N°2.</p>
+    <ul>
+      <li>Enumerá las pantallas o secciones que vas a construir.</li>
+      <li>Indicá qué datos va a mostrar u obtener cada una.</li>
+    </ul>
+  </div>
+
+  <div class="consigna">
+    <div class="titulo">
+      <h3>2. Estructura y estilo (HTML + CSS)</h3>
+      <span class="puntos">10 pts</span>
+    </div>
+    <p>Construí la interfaz del sistema respetando el diseño del prototipo.</p>
+    <ul>
+      <li>Armá la estructura HTML de las pantallas definidas en la consigna 1.</li>
+      <li>Aplicá estilos con CSS (colores, tipografía, distribución) coherentes con lo prototipado.</li>
+      <li>El diseño debe verse ordenado y legible en pantalla.</li>
+    </ul>
+  </div>
+
+  <div class="consigna">
+    <div class="titulo">
+      <h3>3. Funcionalidad (JavaScript)</h3>
+      <span class="puntos">7 pts</span>
+    </div>
+    <p>Agregá la lógica necesaria para que el sistema haga lo que se definió como requisito funcional.</p>
+    <ul>
+      <li>Programá al menos una funcionalidad interactiva (por ejemplo: validar un dato, mostrar/ocultar
+      información, guardar o buscar algo).</li>
+      <li>Podés usar IA como apoyo para escribir o corregir código (ver nota más abajo).</li>
+    </ul>
+  </div>
+
+  <div class="consigna">
+    <div class="titulo">
+      <h3>4. Documentar el código</h3>
+      <span class="puntos">3 pts</span>
+    </div>
+    <p>Agregá comentarios breves en el código explicando qué hace cada parte importante.</p>
+  </div>
+
+  <div class="ia-nota">
+    <h3>🤖 Sobre el uso de IA</h3>
+    Está permitido usar herramientas de IA para generar o corregir código. La condición es que puedas <strong>explicar
+    qué hace cada línea que entregás</strong>. Si en la puesta en común no podés explicar tu propio código, la
+    consigna correspondiente no se considera resuelta.
+  </div>
+
+  <h2 class="section">✅ Criterios de evaluación</h2>
+  <table class="rubrica">
+    <tr>
+      <th>Consigna</th>
+      <th>Se evalúa</th>
+      <th>Puntos</th>
+    </tr>
+    <tr>
+      <td>1. Recuperar el diseño</td>
+      <td>Coherencia con el prototipo del TP N°2</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>2. Estructura y estilo</td>
+      <td>HTML válido, CSS aplicado, prolijidad visual</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>3. Funcionalidad</td>
+      <td>El JavaScript funciona sin errores</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>4. Documentación</td>
+      <td>Comentarios claros en el código</td>
+      <td>3</td>
+    </tr>
+  </table>
+
+  <div class="entrega">
+    <strong>Entrega:</strong> archivo/s HTML, CSS y JS (o un único .html) subidos según indique el/la docente.
+  </div>
+
+  <div class="footer">
+    Ciclo de Vida del Software · TP N°3 corresponde a la Etapa 4 — Desarrollo
+  </div>
+
+</body>
+</html>

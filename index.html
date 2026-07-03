@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ciclo de Vida del Software - Índice</title>
+<style>
+  :root{
+    --azul:#2c3e91;
+    --verde:#6aab3c;
+    --violeta:#7b4fa0;
+    --fondo:#fbfaf7;
+    --borde:#e4e1da;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--fondo);
+    color:#2b2b2b;
+    margin:0;
+    padding:40px 20px;
+    display:flex;
+    justify-content:center;
+  }
+  .wrap{max-width:560px;width:100%;}
+  .header{
+    text-align:center;
+    border-bottom:3px solid var(--azul);
+    padding-bottom:16px;
+    margin-bottom:30px;
+  }
+  .header h1{margin:0 0 6px 0;color:var(--azul);font-size:24px;}
+  .header p{margin:0;color:#666;font-size:13px;}
+  .card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:#fff;
+    border:1px solid var(--borde);
+    border-left:6px solid var(--azul);
+    border-radius:10px;
+    padding:18px 20px;
+    margin-bottom:16px;
+    text-decoration:none;
+    color:inherit;
+    transition:transform .12s, box-shadow .12s;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 14px rgba(0,0,0,0.08);
+  }
+  .card.teoria{border-left-color:var(--azul);}
+  .card.quiz{border-left-color:var(--verde);}
+  .card.tp{border-left-color:var(--violeta);}
+  .icono{
+    font-size:28px;
+    flex-shrink:0;
+  }
+  .texto h3{
+    margin:0 0 4px 0;
+    font-size:16.5px;
+  }
+  .card.teoria h3{color:var(--azul);}
+  .card.quiz h3{color:var(--verde);}
+  .card.tp h3{color:var(--violeta);}
+  .texto p{
+    margin:0;
+    font-size:13px;
+    color:#666;
+  }
+  .flecha{
+    margin-left:auto;
+    font-size:18px;
+    color:#999;
+  }
+  .footer{
+    margin-top:30px;
+    text-align:center;
+    font-size:11.5px;
+    color:#999;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <h1>📋 Ciclo de Vida del Software</h1>
+    <p>Desarrollo de Sistemas Digitales · 5° Año · Prof. Humberto Montaldi · 2026</p>
+  </div>
+
+  <a class="card teoria" href="teoria_ciclo_vida_software.html">
+    <div class="icono">📖</div>
+    <div class="texto">
+      <h3>1. Teoría</h3>
+      <p>Las 7 etapas del ciclo de vida, etapas críticas y glosario</p>
+    </div>
+    <div class="flecha">→</div>
+  </a>
+
+  <a class="card quiz" href="quiz_ciclo_vida_software.html">
+    <div class="icono">🧠</div>
+    <div class="texto">
+      <h3>2. Quiz de repaso</h3>
+      <p>Autocorregible · repetilo antes de empezar el TP</p>
+    </div>
+    <div class="flecha">→</div>
+  </a>
+
+  <a class="card tp" href="tp3_desarrollo_software.html">
+    <div class="icono">💻</div>
+    <div class="texto">
+      <h3>3. TP N°3 — Desarrollo</h3>
+      <p>Consignas, 25 puntos · Etapa 4 del ciclo de vida</p>
+    </div>
+    <div class="flecha">→</div>
+  </a>
+
+  <div class="footer">
+    Ciclo de Vida del Software · Material de cátedra 2026
+  </div>
+
+</div>
+</body>
+</html>

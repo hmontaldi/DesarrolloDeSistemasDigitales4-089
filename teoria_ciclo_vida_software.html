@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ciclo de Vida del Software - Teoría</title>
+<style>
+  :root{
+    --azul:#2c3e91;
+    --verde:#6aab3c;
+    --naranja:#e0692f;
+    --violeta:#7b4fa0;
+    --celeste:#4a9fd8;
+    --fondo:#fbfaf7;
+    --texto:#2b2b2b;
+    --borde:#e4e1da;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--fondo);
+    color:var(--texto);
+    margin:0;
+    padding:30px 40px;
+    line-height:1.55;
+  }
+  .header{
+    text-align:center;
+    border-bottom:3px solid var(--azul);
+    padding-bottom:14px;
+    margin-bottom:24px;
+  }
+  .header h1{
+    margin:0 0 4px 0;
+    color:var(--azul);
+    font-size:26px;
+  }
+  .header p{
+    margin:0;
+    color:#666;
+    font-size:13px;
+  }
+  .intro{
+    background:#eef1fb;
+    border-left:5px solid var(--azul);
+    padding:14px 18px;
+    border-radius:6px;
+    margin-bottom:22px;
+    font-size:14.5px;
+  }
+  .ciclo{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin:22px 0 28px 0;
+  }
+  .etapa-chip{
+    flex:1 1 120px;
+    min-width:120px;
+    max-width:150px;
+    color:#fff;
+    border-radius:10px;
+    padding:12px 8px;
+    text-align:center;
+    font-size:12.5px;
+    font-weight:600;
+  }
+  .c1{background:var(--azul);}
+  .c2{background:var(--verde);}
+  .c3{background:var(--naranja);}
+  .c4{background:var(--violeta);}
+  .c5{background:var(--celeste);}
+  .c6{background:#3fa796;}
+  .c7{background:#2e7d6b;}
+  .etapa-chip .num{
+    display:block;
+    font-size:18px;
+    margin-bottom:3px;
+  }
+  .etapa{
+    border:1px solid var(--borde);
+    border-left:6px solid var(--azul);
+    border-radius:8px;
+    padding:14px 18px;
+    margin-bottom:12px;
+    background:#fff;
+  }
+  .etapa.warn{border-left-color:var(--naranja);}
+  .etapa h3{
+    margin:0 0 6px 0;
+    font-size:16px;
+    color:var(--azul);
+  }
+  .etapa.warn h3{color:var(--naranja);}
+  .etapa p{margin:0;font-size:14px;}
+  .badge{
+    display:inline-block;
+    background:var(--naranja);
+    color:#fff;
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:10px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+  .callout{
+    background:#fdf3e9;
+    border:1px solid #f0d4b0;
+    border-radius:8px;
+    padding:16px 20px;
+    margin:24px 0;
+  }
+  .callout h2{
+    margin-top:0;
+    color:var(--naranja);
+    font-size:17px;
+  }
+  .callout ul{margin:8px 0 8px 20px;padding:0;font-size:14px;}
+  .callout li{margin-bottom:8px;}
+  .think{
+    background:#eef7ea;
+    border:1px solid #cfe6c3;
+    border-radius:8px;
+    padding:14px 20px;
+    margin:22px 0;
+    font-size:14px;
+  }
+  .think h2{margin-top:0;color:var(--verde);font-size:16px;}
+  h2.section{
+    color:var(--violeta);
+    border-bottom:2px solid #e4dcee;
+    padding-bottom:6px;
+    margin-top:32px;
+    font-size:19px;
+  }
+  .glosario dt{
+    font-weight:700;
+    color:var(--azul);
+    margin-top:10px;
+    font-size:14.5px;
+  }
+  .glosario dd{
+    margin:2px 0 0 0;
+    font-size:13.5px;
+    color:#444;
+  }
+  .footer{
+    margin-top:30px;
+    text-align:center;
+    font-size:11.5px;
+    color:#999;
+    border-top:1px solid var(--borde);
+    padding-top:10px;
+  }
+  @media print{
+    body{padding:12px 20px;}
+    .etapa{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>📋 Ciclo de Vida del Software</h1>
+    <p>Teoría · Desarrollo de Sistemas Digitales · 5° Año · Prof. Humberto Montaldi · 2026</p>
+  </div>
+
+  <div class="intro">
+    <strong>¿Qué es el Ciclo de Vida del Software?</strong> Es el conjunto de etapas ordenadas que todo equipo de
+    desarrollo debe seguir para construir un sistema digital de calidad. No importa si el sistema es grande o
+    pequeño: saltarse una etapa siempre genera problemas más adelante.<br><br>
+    Pensalo como una receta: si te saltás un paso, el resultado final no sale bien.
+  </div>
+
+  <div class="ciclo">
+    <div class="etapa-chip c1"><span class="num">1</span>Planificación</div>
+    <div class="etapa-chip c2"><span class="num">2</span>Requisitos</div>
+    <div class="etapa-chip c3"><span class="num">3</span>Diseño y Prototipo</div>
+    <div class="etapa-chip c4"><span class="num">4</span>Desarrollo</div>
+    <div class="etapa-chip c5"><span class="num">5</span>Pruebas</div>
+    <div class="etapa-chip c6"><span class="num">6</span>Despliegue</div>
+    <div class="etapa-chip c7"><span class="num">7</span>Operaciones y Mantenimiento</div>
+  </div>
+
+  <div class="etapa">
+    <h3>1. Planificación</h3>
+    <p>Se define el alcance del proyecto, los tiempos, el equipo y los recursos necesarios. Es la hoja de ruta del desarrollo.</p>
+  </div>
+
+  <div class="etapa warn">
+    <h3>2. Definición / Análisis de Requisitos <span class="badge">40-50% de defectos</span></h3>
+    <p>Se identifica con detalle qué necesita el usuario y qué debe hacer el sistema. Es la etapa con mayor impacto:
+    entre el 40% y 50% de los defectos del software se generan aquí si no se hace bien.</p>
+  </div>
+
+  <div class="etapa warn">
+    <h3>3. Diseño y Prototipo <span class="badge">15-20% de defectos</span></h3>
+    <p>Se diseña la arquitectura del sistema, las pantallas y cómo fluyen los datos. Hacer prototipos permite mostrar
+    la idea al usuario antes de programar y evitar correcciones costosas. Genera entre el 15% y 20% de los defectos
+    si se descuida.</p>
+  </div>
+
+  <div class="etapa">
+    <h3>4. Desarrollo del Software</h3>
+    <p>Los programadores escriben el código del sistema según el diseño aprobado. Para sorpresa de muchos, es la
+    etapa que menos defectos genera cuando las etapas anteriores se hicieron bien.</p>
+  </div>
+
+  <div class="etapa warn">
+    <h3>5. Pruebas <span class="badge">10-15% de defectos</span></h3>
+    <p>Se verifica que el sistema funcione correctamente y sin errores. Genera entre el 10% y 15% de defectos si no
+    se le dedica tiempo suficiente. Una mala planificación hace que esta etapa sea siempre la que "paga las
+    consecuencias" del retraso de las anteriores.</p>
+  </div>
+
+  <div class="etapa">
+    <h3>6. Lanzamiento / Despliegue</h3>
+    <p>El sistema se instala y pone a disposición de los usuarios reales. Se capacita al personal y se monitorea el
+    funcionamiento inicial.</p>
+  </div>
+
+  <div class="etapa">
+    <h3>7. Operaciones y Mantenimiento</h3>
+    <p>El sistema está en uso. Se corrigen errores que aparecen, se agregan mejoras y se adapta a nuevas necesidades.
+    Esta etapa puede durar años.</p>
+  </div>
+
+  <div class="callout">
+    <h2>⚠️ Las 3 etapas que más defectos generan</h2>
+    <p style="font-size:14px;margin-top:0;">Si estas tres etapas se hacen mal, pueden provocar entre el <strong>65%
+    y el 85%</strong> del total de los errores del producto final:</p>
+    <ul>
+      <li><strong>Etapa 2 — Análisis de Requisitos:</strong> el usuario no explica bien lo que necesita o el analista
+      no pregunta suficiente. Resultado: el sistema hace algo distinto a lo esperado.</li>
+      <li><strong>Etapa 3 — Diseño y Prototipo:</strong> se omite mostrar al usuario cómo va a quedar el sistema
+      antes de programarlo. Resultado: hay que rehacer partes enteras.</li>
+      <li><strong>Etapa 5 — Pruebas:</strong> se le dedica poco tiempo porque las etapas anteriores se atrasaron.
+      Resultado: el sistema tiene errores que llegan al usuario final.</li>
+    </ul>
+    <p style="font-size:13.5px;font-style:italic;margin-bottom:0;">Conclusión: desarrollar buen software no es solo
+    escribir buen código. Lo más importante es entender bien el problema y diseñar bien la solución antes de
+    programar.</p>
+  </div>
+
+  <div class="think">
+    <h2>💡 Para pensar...</h2>
+    El 40% al 50% de los defectos de un sistema se generan en la etapa de Requisitos, pero los desarrolladores
+    suelen pasar la mayor parte del tiempo en la etapa de Desarrollo. ¿Dónde habría que invertir más esfuerzo
+    entonces?
+  </div>
+
+  <h2 class="section">📖 Glosario rápido</h2>
+  <dl class="glosario">
+    <dt>Requisito funcional</dt>
+    <dd>Lo que el sistema debe hacer (por ejemplo: "debe permitir buscar un libro por título").</dd>
+    <dt>Requisito no funcional</dt>
+    <dd>Cómo debe hacerlo (por ejemplo: "debe responder en menos de 2 segundos").</dd>
+    <dt>Prototipo</dt>
+    <dd>Versión simplificada y no funcional del sistema, usada para validar el diseño con el usuario antes de programar.</dd>
+    <dt>Defecto / Bug</dt>
+    <dd>Error en el software que provoca que no funcione como se esperaba.</dd>
+    <dt>Despliegue</dt>
+    <dd>Proceso de instalar y poner en producción el sistema para que los usuarios reales puedan usarlo.</dd>
+    <dt>Mantenimiento</dt>
+    <dd>Correcciones y mejoras que se realizan sobre el sistema una vez que está en uso.</dd>
+    <dt>Meta proceso</dt>
+    <dd>Proceso que organiza y coordina todos los demás procesos de un proyecto. El ciclo de vida es el meta proceso del desarrollo de software.</dd>
+  </dl>
+
+  <div class="footer">
+    Basado en: Adolfo Navarro — "Evita Defectos: Importancia de las Etapas del Ciclo de Vida del Software" · Sugeris, 2024
+  </div>
+
+</body>
+</html>
