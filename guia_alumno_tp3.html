@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía para el Alumno — TP N°3: Desarrollo del Software</title>
+<style>
+  :root{
+    --ink:#111;
+    --line:#111;
+    --muted:#444;
+    --paper:#fff;
+    --max:820px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    line-height:1.5;
+  }
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:2.5rem 1.5rem 4rem;
+  }
+  h1{
+    font-size:1.7rem;
+    margin:0 0 .2rem;
+    font-weight:800;
+  }
+  .subtitle{
+    font-size:.95rem;
+    color:var(--muted);
+    margin:0 0 1.2rem;
+  }
+  hr{
+    border:none;
+    border-top:2px solid var(--line);
+    margin:1.4rem 0;
+  }
+  hr.thin{
+    border-top:1px solid var(--line);
+  }
+  .intro{
+    font-size:1rem;
+    margin-bottom:.5rem;
+  }
+  h2{
+    font-size:1.15rem;
+    font-weight:700;
+    margin:1.8rem 0 .6rem;
+    padding-bottom:.25rem;
+    border-bottom:2px solid var(--line);
+  }
+  p{
+    margin:.5rem 0;
+  }
+  ul{
+    margin:.4rem 0 .8rem;
+    padding-left:1.3rem;
+  }
+  li{
+    margin:.3rem 0;
+  }
+  .prompt-box{
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    padding:1rem 1.1rem;
+    background:var(--paper);
+    font-family:"SFMono-Regular", Consolas, "Courier New", monospace;
+    font-size:.85rem;
+    line-height:1.7;
+    white-space:pre-wrap;
+    margin:.8rem 0 1rem;
+  }
+  .prompt-box .placeholder{
+    color:var(--muted);
+    font-style:italic;
+  }
+  .copy-btn{
+    display:inline-block;
+    margin-bottom:.6rem;
+    padding:.45rem .9rem;
+    font-size:.85rem;
+    font-weight:600;
+    border:1.5px solid var(--line);
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:4px;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .copy-btn:hover{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .copy-btn.copied{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:.8rem 0 1rem;
+    font-size:.92rem;
+  }
+  th, td{
+    text-align:left;
+    padding:.55rem .5rem;
+    border-bottom:1px solid var(--line);
+  }
+  th{
+    border-bottom:2px solid var(--line);
+    font-weight:700;
+  }
+  td.center, th.center{
+    text-align:center;
+  }
+  input[type="checkbox"]{
+    width:18px;
+    height:18px;
+    accent-color:var(--ink);
+  }
+  .footer-note{
+    margin-top:2rem;
+    font-size:.85rem;
+    color:var(--muted);
+    text-align:center;
+  }
+  .badge{
+    display:inline-block;
+    border:1.3px solid var(--line);
+    border-radius:3px;
+    padding:.05rem .45rem;
+    font-size:.8rem;
+    font-weight:700;
+    margin-left:.4rem;
+  }
+  @media print{
+    .copy-btn{display:none;}
+    body{padding:0;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Guía para el Alumno</h1>
+  <p class="subtitle">TP N°3 — Etapa 4: Desarrollo del Software · Desarrollo de Sistemas Digitales · 5° Año · Prof. Humberto Montaldi · 2026</p>
+
+  <hr>
+
+  <p class="intro">
+    Esta guía te acompaña en la construcción de la página HTML/CSS/JS de tu sistema, a partir del
+    prototipo que ya diseñaste en el TP N°2. También te muestra cómo pedirle ayuda a una IA sin perder
+    el control de lo que estás entregando: recordá que en la puesta en común vas a tener que explicar
+    cada línea de tu código.
+  </p>
+
+  <h2>1. Antes de empezar: recuperá tu diseño <span class="badge">20 pts</span></h2>
+  <p>Abrí el TP N°2 y tené a mano el prototipo aprobado. No arranques a programar sin esto: es la base de todo lo que sigue.</p>
+  <ul>
+    <li>Hacé una lista de las pantallas o secciones que va a tener tu página.</li>
+    <li>Para cada una, anotá qué datos muestra o qué datos pide al usuario.</li>
+    <li>Si tenés bocetos o capturas del TP N°2, guardalos cerca: se los vas a describir a la IA en el paso 3.</li>
+  </ul>
+
+  <h2>2. Estructura y estilo — HTML + CSS <span class="badge">40 pts</span></h2>
+  <p>
+    Construí primero el esqueleto HTML de cada pantalla que listaste, respetando el orden y los contenidos
+    del prototipo. Después sumá el CSS: colores, tipografía y distribución coherentes con lo que diseñaste.
+    El resultado debe verse ordenado y legible.
+  </p>
+  <ul>
+    <li>Un archivo HTML por pantalla, o todo en un único .html con secciones bien separadas.</li>
+    <li>Usá etiquetas semánticas (header, main, section, footer) en vez de puros &lt;div&gt;.</li>
+    <li>Revisá que el texto se lea bien y que los botones/campos tengan tamaño cómodo para tocar o clickear.</li>
+  </ul>
+
+  <h2>3. Funcionalidad — JavaScript <span class="badge">28 pts</span></h2>
+  <p>
+    Sumá al menos una funcionalidad interactiva real: validar un dato, mostrar/ocultar información,
+    guardar algo, buscar algo. Elegí una que tenga sentido con el requisito funcional de tu sistema,
+    no una genérica.
+  </p>
+
+  <h2>4. Documentar el código <span class="badge">12 pts</span></h2>
+  <p>
+    Agregá comentarios breves arriba de cada bloque importante de HTML, CSS y JS explicando qué hace.
+    No hace falta comentar línea por línea: alcanza con explicar el "para qué" de cada parte.
+  </p>
+
+  <hr>
+
+  <h2>Cómo usar la IA como apoyo (sin perder el control)</h2>
+  <p>
+    Podés usar una IA (Claude, ChatGPT, Gemini, etc.) para generar o corregir código. La regla es una
+    sola: tenés que poder explicar cada línea que entregás. Para que la IA te ayude bien, no le pidas
+    "hacé la página" a secas — describile tu diseño del TP N°2. Copiá y completá esta plantilla:
+  </p>
+
+  <button class="copy-btn" onclick="copyPrompt(this)">Copiar plantilla</button>
+
+  <div class="prompt-box" id="promptText">Estoy haciendo el TP N°3 de Desarrollo de Sistemas Digitales (Etapa 4: Desarrollo).
+Ya tengo un prototipo aprobado del TP N°2. Quiero que me ayudes a programarlo en
+HTML, CSS y JavaScript (todo en un solo archivo .html), explicándome cada parte
+para poder defenderlo en clase.
+
+Mi sistema es: <span class="placeholder">[nombre y breve descripción del sistema]</span>.
+
+Pantallas o secciones que necesito (según mi TP N°2):
+1. <span class="placeholder">[nombre de la pantalla] – muestra/pide: [datos]</span>
+2. <span class="placeholder">[nombre de la pantalla] – muestra/pide: [datos]</span>
+3. <span class="placeholder">[agregar las que falten]</span>
+
+Estilo visual que quiero (colores, tipografía, distribución, según mi prototipo):
+<span class="placeholder">[describir o pegar referencia del boceto]</span>
+
+Funcionalidad interactiva que necesito programar en JavaScript:
+<span class="placeholder">[ej: validar que un campo no esté vacío / mostrar-ocultar un panel /
+ guardar datos en una lista / buscar un elemento en la lista]</span>
+
+Por favor:
+- Generá el HTML, CSS y JS juntos en un solo archivo.
+- Agregá comentarios breves arriba de cada bloque explicando qué hace.
+- Usá código simple, sin librerías externas, para que lo pueda explicar en clase.
+- Al final, hacéme un resumen en lenguaje simple de qué hace cada parte del código.</div>
+
+  <p>
+    Después de que la IA te dé el código: leelo entero, pedile que te explique cualquier línea que no
+    entiendas, y probalo en el navegador antes de entregar. Si algo no anda, describile el error a la IA
+    (o pegá el mensaje de la consola) para corregirlo junto con ella.
+  </p>
+
+  <hr>
+
+  <h2>Checklist antes de entregar</h2>
+  <table>
+    <thead>
+      <tr><th>Ítem</th><th class="center">Pts</th><th class="center">Hecho</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Pantallas listadas y coherentes con el TP N°2</td><td class="center">20</td><td class="center"><input type="checkbox"></td></tr>
+      <tr><td>HTML de todas las pantallas armado</td><td class="center">—</td><td class="center"><input type="checkbox"></td></tr>
+      <tr><td>CSS aplicado (colores, tipografía, orden visual)</td><td class="center">40</td><td class="center"><input type="checkbox"></td></tr>
+      <tr><td>Se ve ordenado y legible en pantalla</td><td class="center">—</td><td class="center"><input type="checkbox"></td></tr>
+      <tr><td>Al menos una funcionalidad interactiva en JS</td><td class="center">28</td><td class="center"><input type="checkbox"></td></tr>
+      <tr><td>El JavaScript funciona sin errores en consola</td><td class="center">—</td><td class="center"><input type="checkbox"></td></tr>
+      <tr><td>Comentarios breves en HTML, CSS y JS</td><td class="center">12</td><td class="center"><input type="checkbox"></td></tr>
+      <tr><td>Puedo explicar cada línea que entrego</td><td class="center">—</td><td class="center"><input type="checkbox"></td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Entrega:</strong> archivo/s HTML, CSS y JS (o un único .html) subidos según indique el/la docente. Puntaje total: 100 pts.</p>
+
+  <p class="footer-note">Ciclo de Vida del Software · TP N°3 corresponde a la Etapa 4 — Desarrollo</p>
+
+</div>
+
+<script>
+function copyPrompt(btn){
+  const box = document.getElementById('promptText');
+  const text = box.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const original = btn.textContent;
+    btn.textContent = "¡Copiado!";
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1800);
+  });
+}
+</script>
+
+</body>
+</html>
