@@ -1,16 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Sistema de Préstamos de Libros</title>
 
     <style>
-        /* =========================
-           ESTILOS GENERALES
-           ========================= */
-
+        /* ESTILOS GENERALES */
         * {
             box-sizing: border-box;
         }
@@ -33,13 +30,11 @@
             margin: 0;
         }
 
-        /* =========================
-           MENÚ PRINCIPAL
-           ========================= */
-
+        /* MENÚ PRINCIPAL */
         nav {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 10px;
             padding: 15px;
             background-color: white;
@@ -59,12 +54,9 @@
             background-color: #2980b9;
         }
 
-        /* =========================
-           CONTENEDOR DE LAS PANTALLAS
-           ========================= */
-
+        /* CONTENEDOR DE LAS PANTALLAS */
         main {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 25px auto;
             padding: 0 15px;
         }
@@ -81,10 +73,7 @@
             display: block;
         }
 
-        /* =========================
-           FORMULARIOS
-           ========================= */
-
+        /* FORMULARIOS */
         label {
             display: block;
             margin-top: 15px;
@@ -114,9 +103,19 @@
             background-color: #219150;
         }
 
-        /* =========================
-           TABLAS
-           ========================= */
+        .btn-devolver {
+            margin: 0;
+            background-color: #e67e22;
+        }
+
+        .btn-devolver:hover {
+            background-color: #ca6f1e;
+        }
+
+        /* TABLAS */
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
 
         table {
             width: 100%;
@@ -136,10 +135,7 @@
             color: white;
         }
 
-        /* =========================
-           MENSAJES
-           ========================= */
-
+        /* MENSAJES */
         .mensaje {
             margin-top: 15px;
             padding: 10px;
@@ -155,26 +151,24 @@
             background-color: #fadbd8;
             color: #922b21;
         }
+
+        .vacio {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- =========================
-         ENCABEZADO DEL SISTEMA
-         ========================= -->
-
+    <!-- ENCABEZADO DEL SISTEMA -->
     <header>
         <h1>Biblioteca</h1>
         <p>Sistema de préstamos y devoluciones</p>
     </header>
 
-
-    <!-- =========================
-         MENÚ PRINCIPAL
-         Permite cambiar de pantalla.
-         ========================= -->
-
+    <!-- MENÚ PRINCIPAL -->
     <nav>
         <button onclick="mostrarPantalla('catalogo')">
             Catálogo
@@ -193,53 +187,72 @@
         </button>
     </nav>
 
-
     <main>
 
-        <!-- =========================
-             PANTALLA: CATÁLOGO
-             Muestra los libros disponibles.
-             ========================= -->
-
+        <!-- PANTALLA DEL CATÁLOGO -->
         <section id="catalogo" class="pantalla activa">
 
             <h2>Catálogo de libros</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Libro</th>
-                        <th>Autor</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
+            <div class="tabla-contenedor">
 
-                <tbody id="tablaLibros">
-                </tbody>
-            </table>
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Libro</th>
+                            <th>Autor</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaLibros">
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </section>
 
 
-        <!-- =========================
-             PANTALLA: PRÉSTAMOS
-             Permite seleccionar alumno,
-             libro y registrar la fecha.
-             ========================= -->
-
+        <!-- PANTALLA PARA REGISTRAR PRÉSTAMOS -->
         <section id="prestamos" class="pantalla">
 
             <h2>Registrar préstamo</h2>
 
             <label for="alumno">
-                Alumno:
+                Nombre y apellido:
             </label>
 
             <input
                 type="text"
                 id="alumno"
-                placeholder="Ingrese el nombre del alumno"
+                placeholder="Ingrese nombre y apellido"
             >
+
+
+            <label for="dni">
+                DNI:
+            </label>
+
+            <input
+                type="number"
+                id="dni"
+                placeholder="Ingrese DNI"
+            >
+
+
+            <label for="curso">
+                Curso:
+            </label>
+
+            <input
+                type="text"
+                id="curso"
+                placeholder="Ej: 4°B"
+            >
+
 
             <label for="libroPrestamo">
                 Libro:
@@ -247,6 +260,7 @@
 
             <select id="libroPrestamo">
             </select>
+
 
             <label for="fechaPrestamo">
                 Fecha del préstamo:
@@ -257,8 +271,13 @@
                 id="fechaPrestamo"
             >
 
-            <button class="btn" onclick="registrarPrestamo()">
+
+            <button
+                class="btn"
+                onclick="registrarPrestamo()">
+
                 Registrar préstamo
+
             </button>
 
             <div id="mensajePrestamo"></div>
@@ -266,59 +285,63 @@
         </section>
 
 
-        <!-- =========================
-             PANTALLA: DEVOLUCIONES
-             Permite buscar un préstamo
-             y registrar su devolución.
-             ========================= -->
-
+        <!-- PANTALLA DE DEVOLUCIONES -->
         <section id="devoluciones" class="pantalla">
 
-            <h2>Registrar devolución</h2>
+            <h2>Devoluciones pendientes</h2>
 
-            <label for="buscarAlumno">
-                Alumno:
-            </label>
+            <div class="tabla-contenedor">
 
-            <input
-                type="text"
-                id="buscarAlumno"
-                placeholder="Nombre del alumno"
-            >
+                <table>
 
-            <button class="btn" onclick="buscarPrestamo()">
-                Buscar préstamo
-            </button>
+                    <thead>
+                        <tr>
+                            <th>Alumno</th>
+                            <th>DNI</th>
+                            <th>Curso</th>
+                            <th>Libro</th>
+                            <th>Fecha préstamo</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
 
-            <div id="resultadoDevolucion"></div>
+                    <tbody id="tablaDevoluciones">
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </section>
 
 
-        <!-- =========================
-             PANTALLA: HISTORIAL
-             Muestra todos los préstamos
-             realizados y su estado.
-             ========================= -->
-
+        <!-- PANTALLA DEL HISTORIAL -->
         <section id="historial" class="pantalla">
 
             <h2>Historial de préstamos</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Alumno</th>
-                        <th>Libro</th>
-                        <th>Fecha préstamo</th>
-                        <th>Fecha devolución</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
+            <div class="tabla-contenedor">
 
-                <tbody id="tablaHistorial">
-                </tbody>
-            </table>
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Alumno</th>
+                            <th>DNI</th>
+                            <th>Curso</th>
+                            <th>Libro</th>
+                            <th>Fecha préstamo</th>
+                            <th>Fecha devolución</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaHistorial">
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </section>
 
@@ -327,170 +350,251 @@
 
     <script>
 
-        /* =========================
-           DATOS INICIALES
-           ========================= */
+        /* DATOS INICIALES DE LOS LIBROS */
 
         let libros = [
+
             {
                 nombre: "El Principito",
                 autor: "Antoine de Saint-Exupéry",
                 disponible: true
             },
+
             {
                 nombre: "Don Quijote",
                 autor: "Miguel de Cervantes",
                 disponible: true
             },
+
             {
                 nombre: "1984",
                 autor: "George Orwell",
                 disponible: true
             },
+
             {
                 nombre: "Harry Potter",
                 autor: "J. K. Rowling",
                 disponible: true
             }
+
         ];
 
 
-        /* =========================
-           LISTA DE PRÉSTAMOS
-           Acá se guardan los préstamos.
-           ========================= */
+        /* LISTA DONDE SE GUARDAN LOS PRÉSTAMOS */
 
         let prestamos = [];
 
 
-        /* =========================
-           FUNCIÓN PARA CAMBIAR
-           ENTRE LAS PANTALLAS.
-           ========================= */
+        /* CAMBIA ENTRE LAS DISTINTAS PANTALLAS */
 
         function mostrarPantalla(id) {
 
-            // Oculta todas las pantallas
-            let pantallas = document.querySelectorAll(".pantalla");
+            let pantallas =
+                document.querySelectorAll(".pantalla");
+
 
             pantallas.forEach(function(pantalla) {
+
                 pantalla.classList.remove("activa");
+
             });
 
-            // Muestra solamente la pantalla seleccionada
-            document.getElementById(id).classList.add("activa");
 
-            // Actualizamos los datos visuales
+            document
+                .getElementById(id)
+                .classList.add("activa");
+
+
             actualizarCatalogo();
-            actualizarHistorial();
+
             actualizarListaLibros();
+
+            actualizarHistorial();
+
+            mostrarListaDevoluciones();
         }
 
 
-        /* =========================
-           MUESTRA LOS LIBROS
-           EN EL CATÁLOGO.
-           ========================= */
+        /* MUESTRA LOS LIBROS Y SU ESTADO */
 
         function actualizarCatalogo() {
 
-            let tabla = document.getElementById("tablaLibros");
+            let tabla =
+                document.getElementById("tablaLibros");
+
 
             tabla.innerHTML = "";
 
+
             libros.forEach(function(libro) {
 
-                let estado = libro.disponible
+                let estado =
+                    libro.disponible
                     ? "Disponible"
                     : "Prestado";
 
+
                 tabla.innerHTML += `
+
                     <tr>
-                        <td>${libro.nombre}</td>
-                        <td>${libro.autor}</td>
-                        <td>${estado}</td>
+
+                        <td>
+                            ${libro.nombre}
+                        </td>
+
+                        <td>
+                            ${libro.autor}
+                        </td>
+
+                        <td>
+                            ${estado}
+                        </td>
+
                     </tr>
+
                 `;
+
             });
+
         }
 
 
-        /* =========================
-           ACTUALIZA EL SELECT
-           DE LIBROS PARA PRÉSTAMO.
-           ========================= */
+        /* CARGA SOLAMENTE LOS LIBROS DISPONIBLES */
 
         function actualizarListaLibros() {
 
-            let select = document.getElementById("libroPrestamo");
+            let select =
+                document.getElementById("libroPrestamo");
+
 
             select.innerHTML = "";
+
+
+            let hayDisponibles = false;
+
 
             libros.forEach(function(libro, indice) {
 
                 if (libro.disponible) {
 
+                    hayDisponibles = true;
+
+
                     select.innerHTML += `
+
                         <option value="${indice}">
+
                             ${libro.nombre}
+
                         </option>
+
                     `;
+
                 }
+
             });
+
+
+            if (!hayDisponibles) {
+
+                select.innerHTML =
+                    `<option value="">
+                        No hay libros disponibles
+                    </option>`;
+
+            }
+
         }
 
 
-        /* =========================
-           REGISTRA UN NUEVO PRÉSTAMO.
-           ========================= */
+        /* REGISTRA UN NUEVO PRÉSTAMO */
 
         function registrarPrestamo() {
 
             let alumno =
-                document.getElementById("alumno").value.trim();
+                document.getElementById("alumno")
+                .value
+                .trim();
+
+
+            let dni =
+                document.getElementById("dni")
+                .value
+                .trim();
+
+
+            let curso =
+                document.getElementById("curso")
+                .value
+                .trim();
+
 
             let indiceLibro =
-                document.getElementById("libroPrestamo").value;
+                document.getElementById("libroPrestamo")
+                .value;
+
 
             let fecha =
-                document.getElementById("fechaPrestamo").value;
+                document.getElementById("fechaPrestamo")
+                .value;
+
 
             let mensaje =
                 document.getElementById("mensajePrestamo");
 
 
-            // Validamos que los campos estén completos
-            if (alumno === "" || fecha === "") {
+            /* VALIDAMOS LOS CAMPOS */
+
+            if (
+                alumno === "" ||
+                dni === "" ||
+                curso === "" ||
+                fecha === ""
+            ) {
 
                 mensaje.innerHTML =
                     "Complete todos los campos.";
 
-                mensaje.className = "mensaje error";
+                mensaje.className =
+                    "mensaje error";
 
                 return;
+
             }
 
 
-            // Buscamos el libro seleccionado
-            let libro = libros[indiceLibro];
+            /* BUSCAMOS EL LIBRO */
+
+            let libro =
+                libros[indiceLibro];
 
 
-            // Verificamos que esté disponible
-            if (!libro || !libro.disponible) {
+            if (
+                !libro ||
+                !libro.disponible
+            ) {
 
                 mensaje.innerHTML =
                     "Ese libro no está disponible.";
 
-                mensaje.className = "mensaje error";
+                mensaje.className =
+                    "mensaje error";
 
                 return;
+
             }
 
 
-            // Creamos el préstamo
+            /* CREAMOS EL PRÉSTAMO */
+
             let nuevoPrestamo = {
 
                 alumno: alumno,
+
+                dni: dni,
+
+                curso: curso,
 
                 libro: libro.nombre,
 
@@ -499,207 +603,295 @@
                 fechaDevolucion: "",
 
                 estado: "Prestado"
+
             };
 
 
-            // Agregamos el préstamo a la lista
+            /* GUARDAMOS EL PRÉSTAMO */
+
             prestamos.push(nuevoPrestamo);
 
 
-            // El libro pasa a estar prestado
+            /* CAMBIAMOS EL ESTADO DEL LIBRO */
+
             libro.disponible = false;
 
 
             mensaje.innerHTML =
                 "Préstamo registrado correctamente.";
 
-            mensaje.className = "mensaje correcto";
+            mensaje.className =
+                "mensaje correcto";
 
 
-            // Limpiamos los campos
+            /* LIMPIAMOS LOS CAMPOS */
+
             document.getElementById("alumno").value = "";
+
+            document.getElementById("dni").value = "";
+
+            document.getElementById("curso").value = "";
 
             document.getElementById("fechaPrestamo").value = "";
 
 
-            // Actualizamos las pantallas
             actualizarCatalogo();
+
             actualizarListaLibros();
+
             actualizarHistorial();
+
+            mostrarListaDevoluciones();
+
         }
 
 
-        /* =========================
-           BUSCA EL PRÉSTAMO
-           DE UN ALUMNO.
-           ========================= */
+        /* MUESTRA LA LISTA DE PRÉSTAMOS PENDIENTES */
 
-        function buscarPrestamo() {
+        function mostrarListaDevoluciones() {
 
-            let alumno =
-                document.getElementById("buscarAlumno").value
-                .trim()
-                .toLowerCase();
-
-            let resultado =
-                document.getElementById("resultadoDevolucion");
+            let tabla =
+                document.getElementById(
+                    "tablaDevoluciones"
+                );
 
 
-            if (alumno === "") {
-
-                resultado.innerHTML =
-                    "Ingrese el nombre del alumno.";
-
-                resultado.className = "mensaje error";
-
-                return;
-            }
+            tabla.innerHTML = "";
 
 
-            // Buscamos un préstamo que todavía
-            // no haya sido devuelto.
-            let indice = prestamos.findIndex(function(prestamo) {
+            let hayPrestamos = false;
 
-                return prestamo.alumno.toLowerCase() === alumno
-                    && prestamo.estado === "Prestado";
+
+            prestamos.forEach(function(
+                prestamo,
+                indice
+            ) {
+
+                if (
+                    prestamo.estado === "Prestado"
+                ) {
+
+                    hayPrestamos = true;
+
+
+                    tabla.innerHTML += `
+
+                        <tr>
+
+                            <td>
+                                ${prestamo.alumno}
+                            </td>
+
+                            <td>
+                                ${prestamo.dni}
+                            </td>
+
+                            <td>
+                                ${prestamo.curso}
+                            </td>
+
+                            <td>
+                                ${prestamo.libro}
+                            </td>
+
+                            <td>
+                                ${prestamo.fechaPrestamo}
+                            </td>
+
+                            <td>
+
+                                <button
+                                    class="btn btn-devolver"
+                                    onclick="registrarDevolucion(${indice})">
+
+                                    Devolver
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                }
+
             });
 
 
-            if (indice === -1) {
+            if (!hayPrestamos) {
 
-                resultado.innerHTML =
-                    "No se encontró un préstamo pendiente.";
+                tabla.innerHTML = `
 
-                resultado.className = "mensaje error";
+                    <tr>
 
-                return;
+                        <td
+                            colspan="6"
+                            class="vacio">
+
+                            No hay préstamos pendientes.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
             }
 
-
-            let prestamo = prestamos[indice];
-
-
-            // Mostramos los datos encontrados
-            resultado.innerHTML = `
-                <p>
-                    <strong>Alumno:</strong>
-                    ${prestamo.alumno}
-                </p>
-
-                <p>
-                    <strong>Libro:</strong>
-                    ${prestamo.libro}
-                </p>
-
-                <p>
-                    <strong>Fecha del préstamo:</strong>
-                    ${prestamo.fechaPrestamo}
-                </p>
-
-                <button
-                    class="btn"
-                    onclick="registrarDevolucion(${indice})">
-                    Registrar devolución
-                </button>
-            `;
-
-            resultado.className = "mensaje correcto";
         }
 
 
-        /* =========================
-           REGISTRA LA DEVOLUCIÓN
-           DEL LIBRO.
-           ========================= */
+        /* REGISTRA LA DEVOLUCIÓN */
 
         function registrarDevolucion(indice) {
 
-            let prestamo = prestamos[indice];
+            let prestamo =
+                prestamos[indice];
 
 
-            // Obtenemos la fecha actual
-            let hoy = new Date();
+            /* OBTENEMOS LA FECHA ACTUAL */
+
+            let hoy =
+                new Date();
+
 
             let fecha =
-                hoy.toISOString().split("T")[0];
+                hoy
+                .toISOString()
+                .split("T")[0];
 
 
-            // Actualizamos el préstamo
-            prestamo.fechaDevolucion = fecha;
+            /* ACTUALIZAMOS EL PRÉSTAMO */
 
-            prestamo.estado = "Devuelto";
+            prestamo.fechaDevolucion =
+                fecha;
 
-
-            // Buscamos el libro correspondiente
-            let libro = libros.find(function(libro) {
-
-                return libro.nombre === prestamo.libro;
-            });
+            prestamo.estado =
+                "Devuelto";
 
 
-            // Volvemos a marcarlo como disponible
+            /* BUSCAMOS EL LIBRO */
+
+            let libro =
+                libros.find(function(libro) {
+
+                    return libro.nombre ===
+                        prestamo.libro;
+
+                });
+
+
+            /* VOLVEMOS A DISPONER EL LIBRO */
+
             if (libro) {
-                libro.disponible = true;
+
+                libro.disponible =
+                    true;
+
             }
 
 
-            document.getElementById(
-                "resultadoDevolucion"
-            ).innerHTML =
-                "Devolución registrada correctamente.";
-
-
-            document.getElementById(
-                "resultadoDevolucion"
-            ).className = "mensaje correcto";
-
-
-            // Actualizamos la información
             actualizarCatalogo();
+
             actualizarListaLibros();
+
             actualizarHistorial();
+
+            mostrarListaDevoluciones();
+
         }
 
 
-        /* =========================
-           ACTUALIZA EL HISTORIAL
-           DE PRÉSTAMOS.
-           ========================= */
+        /* MUESTRA TODOS LOS PRÉSTAMOS EN EL HISTORIAL */
 
         function actualizarHistorial() {
 
             let tabla =
-                document.getElementById("tablaHistorial");
+                document.getElementById(
+                    "tablaHistorial"
+                );
+
 
             tabla.innerHTML = "";
+
+
+            if (prestamos.length === 0) {
+
+                tabla.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="vacio">
+
+                            Todavía no hay
+                            préstamos registrados.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+
+            }
 
 
             prestamos.forEach(function(prestamo) {
 
                 tabla.innerHTML += `
+
                     <tr>
-                        <td>${prestamo.alumno}</td>
-                        <td>${prestamo.libro}</td>
-                        <td>${prestamo.fechaPrestamo}</td>
+
+                        <td>
+                            ${prestamo.alumno}
+                        </td>
+
+                        <td>
+                            ${prestamo.dni}
+                        </td>
+
+                        <td>
+                            ${prestamo.curso}
+                        </td>
+
+                        <td>
+                            ${prestamo.libro}
+                        </td>
+
+                        <td>
+                            ${prestamo.fechaPrestamo}
+                        </td>
+
                         <td>
                             ${prestamo.fechaDevolucion || "-"}
                         </td>
-                        <td>${prestamo.estado}</td>
+
+                        <td>
+                            ${prestamo.estado}
+                        </td>
+
                     </tr>
+
                 `;
+
             });
+
         }
 
 
-        /* =========================
-           INICIO DEL SISTEMA
-           Cargamos los datos al abrir
-           la página.
-           ========================= */
+        /* INICIAMOS EL SISTEMA */
 
         actualizarCatalogo();
+
         actualizarListaLibros();
+
         actualizarHistorial();
+
+        mostrarListaDevoluciones();
 
     </script>
 
