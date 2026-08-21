@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabinete de Informática — Ficha de Trámites</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white: #fbfaf8;
+    --surface: #ffffff;
+    --cream: #f3efe8;
+    --line: #e6e0d6;
+    --black: #1c1a17;
+    --text: #2a2723;
+    --muted: #857c6f;
+    --brown: #7c5c42;
+    --brown-dark: #5a4130;
+    --brown-light: #b79a7c;
+    --brown-tint: #efe7db;
+    --ok: #4c7a5c;
+    --ok-tint: #e6efe6;
+    --warn: #a97a34;
+    --warn-tint: #f5ecdb;
+    --bad: #a1503f;
+    --bad-tint: #f3e4e0;
+    --shadow-sm: 0 1px 2px rgba(28,26,23,0.06), 0 1px 1px rgba(28,26,23,0.04);
+    --shadow-md: 0 6px 20px rgba(28,26,23,0.08), 0 2px 6px rgba(28,26,23,0.05);
+    --shadow-lg: 0 16px 40px rgba(28,26,23,0.12), 0 4px 10px rgba(28,26,23,0.06);
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3, .brand, .display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{ font-variant-numeric:tabular-nums; letter-spacing:0.02em; }
+
+  a{ color:var(--brown-dark); }
+
+  button{ font:inherit; cursor:pointer; }
+
+  ::selection{ background:var(--brown-tint); color:var(--black); }
+
+  /* ---------- Screen transition ---------- */
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes fadeIn{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+  main > section:not(.hidden){
+    animation: riseIn .55s var(--ease);
+  }
+
+  /* ---------- Top masthead ---------- */
+  .masthead{
+    position:relative; z-index:1;
+    background:var(--surface);
+    color:var(--black);
+    padding:16px 28px;
+    display:flex; align-items:center; gap:16px;
+    border-bottom:1px solid var(--line);
+    animation: fadeIn .5s var(--ease);
+  }
+  .masthead .crest{ width:36px; height:36px; flex:0 0 auto; }
+  .masthead .titles{ flex:1; }
+  .masthead h1{
+    margin:0; font-size:1.15rem; color:var(--black); font-weight:600;
+  }
+  .masthead .sub{
+    margin:2px 0 0; font-size:0.74rem; color:var(--muted); letter-spacing:0.3px;
+  }
+  .masthead .session{
+    text-align:right; font-size:0.76rem; color:var(--muted);
+  }
+  .masthead .session strong{ color:var(--black); display:block; font-size:0.88rem; font-weight:600;}
+  .masthead .logout{
+    margin-top:6px; background:transparent; border:1px solid var(--line); color:var(--muted);
+    padding:5px 12px; font-size:0.72rem; border-radius:999px; transition:all .2s var(--ease);
+  }
+  .masthead .logout:hover{ background:var(--black); color:var(--white); border-color:var(--black); }
+
+  main{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:32px 20px 80px; }
+
+  .hidden{ display:none !important; }
+
+  /* ---------- Generic card ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    border-radius:16px;
+    position:relative;
+    padding:28px 28px 24px;
+    margin-bottom:22px;
+    transition: box-shadow .3s var(--ease);
+  }
+
+  .eyebrow{
+    font-size:0.72rem; letter-spacing:0.6px; text-transform:uppercase; color:var(--brown);
+    margin:0 0 8px; font-weight:600;
+  }
+  .card h2{ margin:0 0 6px; font-size:1.3rem; color:var(--black); }
+  .card .desc{ margin:0 0 16px; font-size:0.9rem; color:var(--muted); line-height:1.5; }
+
+  /* ---------- Login screen ---------- */
+  .login-wrap{
+    max-width:420px; margin:48px auto 0; text-align:center;
+  }
+  .login-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    box-shadow: var(--shadow-lg);
+    border-radius:20px;
+    padding:36px 32px 30px;
+    position:relative;
+    animation: riseIn .6s var(--ease);
+  }
+  .login-card .crest-big{ width:52px; height:52px; margin:0 auto 14px; display:block; }
+  .login-card h1{ font-size:1.35rem; margin:0 0 4px; color:var(--black); }
+  .login-card .sub{ font-size:0.82rem; color:var(--muted); margin-bottom:26px;}
+
+  .field{ text-align:left; margin-bottom:16px; }
+  .field label{ display:block; font-size:0.75rem; font-weight:600; color:var(--text); margin-bottom:6px; }
+  .field input[type=text]{
+    width:100%; padding:11px 14px; font-family:'Inter',sans-serif; font-size:0.95rem;
+    background:var(--cream); border:1.5px solid var(--line); border-radius:10px;
+    color:var(--black); transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .field input[type=text]:focus{ outline:none; border-color:var(--brown); box-shadow:0 0 0 3px var(--brown-tint); }
+
+  .role-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+  .role-opt{
+    border:1.5px solid var(--line); background:var(--cream); border-radius:10px; padding:11px 8px;
+    font-family:'Inter',sans-serif; font-size:0.82rem; text-align:center; color:var(--text);
+    transition:all .18s var(--ease);
+  }
+  .role-opt:hover{ border-color:var(--brown-light); transform:translateY(-1px); }
+  .role-opt.selected{ background:var(--black); color:var(--white); border-color:var(--black); transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+
+  .demo-toggle{
+    display:flex; align-items:center; gap:8px; font-size:0.78rem; color:var(--muted);
+    margin:6px 0 22px; text-align:left;
+  }
+
+  .btn{
+    display:inline-block; background:var(--black); color:var(--white);
+    border:none; padding:12px 22px; font-size:0.85rem; font-weight:600; border-radius:10px;
+    font-family:'Inter',sans-serif; transition:all .2s var(--ease); box-shadow:var(--shadow-sm);
+  }
+  .btn:hover{ background:var(--brown-dark); transform:translateY(-1px); box-shadow:var(--shadow-md); }
+  .btn:active{ transform:translateY(0); }
+  .btn.wide{ width:100%; }
+  .btn.ghost{
+    background:transparent; color:var(--black); border:1.5px solid var(--line); box-shadow:none;
+  }
+  .btn.ghost:hover{ background:var(--cream); border-color:var(--brown-light); color:var(--black); transform:translateY(-1px); }
+  .btn.small{ padding:8px 14px; font-size:0.76rem; border-radius:8px; }
+  .btn:disabled{ background:var(--line); color:var(--muted); box-shadow:none; cursor:not-allowed; transform:none; }
+  .error-msg{ color:var(--bad); font-size:0.8rem; margin:-8px 0 14px; min-height:1em; }
+
+  /* ---------- Dashboard / tabs ---------- */
+  .id-strip{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.8rem; color:var(--muted); margin-bottom:20px; flex-wrap:wrap; gap:6px;
+  }
+  .id-strip .pill{
+    background:var(--cream); color:var(--brown-dark); padding:4px 12px; font-size:0.72rem;
+    border-radius:999px; font-weight:600;
+  }
+
+  .tabs{ display:flex; gap:22px; margin-bottom:0; flex-wrap:wrap; border-bottom:1px solid var(--line); }
+  .tab{
+    background:transparent; color:var(--muted); border:none;
+    padding:10px 2px 12px; font-size:0.84rem; font-weight:600; font-family:'Inter',sans-serif;
+    position:relative; transition:color .2s var(--ease);
+  }
+  .tab::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    background:var(--black); transform:scaleX(0); transform-origin:center;
+    transition:transform .25s var(--ease);
+  }
+  .tab.active{ color:var(--black); }
+  .tab.active::after{ transform:scaleX(1); }
+  .tab:hover{ color:var(--black); }
+
+  .panel{
+    background:var(--surface); border:1px solid var(--line); border-top:none;
+    box-shadow: var(--shadow-sm); border-radius:0 0 16px 16px;
+    padding:26px; margin-top:0;
+  }
+
+  .module-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+  .module-tile{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 20px;
+    box-shadow:var(--shadow-sm); text-align:left; width:100%; transition:all .22s var(--ease);
+  }
+  .module-tile:hover{ box-shadow:var(--shadow-md); transform:translateY(-3px); border-color:var(--brown-light); }
+  .module-tile .num{ font-size:0.72rem; color:var(--brown); letter-spacing:0.5px; font-weight:600; }
+  .module-tile h3{ margin:8px 0 6px; font-size:1.05rem; color:var(--black); }
+  .module-tile p{ margin:0; font-size:0.82rem; color:var(--muted); line-height:1.45; }
+
+  /* ---------- Forms ---------- */
+  .row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .row.three{ grid-template-columns:1fr 1fr 1fr; }
+  @media (max-width:600px){ .row, .row.three{ grid-template-columns:1fr; } }
+
+  select, input[type=number], input[type=date], input[type=time], textarea{
+    width:100%; padding:10px 12px; font-family:'Inter',sans-serif; font-size:0.9rem;
+    background:var(--cream); border:1.5px solid var(--line); border-radius:10px;
+    color:var(--black); transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  select:focus, input:focus, textarea:focus{ outline:none; border-color:var(--brown); box-shadow:0 0 0 3px var(--brown-tint); }
+  textarea{ resize:vertical; min-height:70px; }
+
+  .opt-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:16px; }
+  .opt-card{
+    border:1.5px solid var(--line); background:var(--cream); border-radius:12px; padding:13px;
+    text-align:left; font-size:0.83rem; transition:all .18s var(--ease);
+  }
+  .opt-card:hover{ border-color:var(--brown-light); transform:translateY(-1px); }
+  .opt-card.selected{ background:var(--black); color:var(--white); border-color:var(--black); transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+  .opt-card small{ display:block; color:inherit; opacity:0.7; font-size:0.74rem; margin-top:4px; }
+
+  .alert{
+    padding:11px 15px; font-size:0.83rem; margin:14px 0; border-radius:10px; border-left:3px solid; line-height:1.45;
+  }
+  .alert.warn{ background:var(--warn-tint); border-color:var(--warn); color:#6b4c1f; }
+  .alert.bad{ background:var(--bad-tint); border-color:var(--bad); color:#7a3527; }
+  .alert.ok{ background:var(--ok-tint); border-color:var(--ok); color:#325a3e; }
+
+  /* ---------- Ticket / confirmation badge ---------- */
+  .ticket{
+    text-align:center; padding:22px 10px 6px;
+  }
+  .ticket .code{
+    font-size:1.5rem; letter-spacing:2px; background:var(--cream); display:inline-block;
+    padding:9px 20px; border-radius:10px; margin-bottom:18px; color:var(--black); font-weight:600;
+  }
+  @keyframes popIn{
+    from{ opacity:0; transform:scale(.85); }
+    to{ opacity:1; transform:scale(1); }
+  }
+  .stamp{
+    display:inline-flex; align-items:center; gap:8px; border:1.5px solid var(--ok); color:var(--ok);
+    background:var(--ok-tint); border-radius:999px; padding:9px 20px;
+    font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600;
+    animation: popIn .4s var(--ease);
+  }
+  .stamp::before{ content:"✓"; font-weight:700; }
+  .stamp.pending{ border-color:var(--warn); color:#7a5a24; background:var(--warn-tint); }
+  .stamp.pending::before{ content:"◔"; }
+
+  /* ---------- List / table style ---------- */
+  .list{ border-top:1px solid var(--line); margin-top:10px; }
+  .list-row{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:14px 4px; border-bottom:1px solid var(--line); font-size:0.85rem; flex-wrap:wrap;
+    transition:background .15s var(--ease);
+  }
+  .list-row:hover{ background:var(--cream); border-radius:8px; }
+  .list-row .main{ flex:1; min-width:160px; }
+  .list-row .main b{ display:block; font-size:0.88rem; color:var(--black); }
+  .list-row .main span{ color:var(--muted); font-size:0.78rem; }
+  .status{
+    font-size:0.7rem; letter-spacing:0.3px; font-weight:600; border-radius:999px;
+    padding:4px 11px;
+  }
+  .status.pendiente{ color:#7a5a24; background:var(--warn-tint); }
+  .status.aprobado, .status.confirmada, .status.entregado, .status.resuelto, .status.disponible{ color:#325a3e; background:var(--ok-tint); }
+  .status.rechazado, .status.en-reparacion{ color:#7a3527; background:var(--bad-tint); }
+  .status.en-proceso, .status.en-uso{ color:var(--brown-dark); background:var(--brown-tint); }
+  .row-actions{ display:flex; gap:6px; }
+
+  .metric-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:14px; margin-top:6px;}
+  .metric{
+    background:var(--cream); border:1px solid var(--line); border-radius:12px; padding:16px; text-align:center;
+    transition:transform .2s var(--ease);
+  }
+  .metric:hover{ transform:translateY(-2px); }
+  .metric .n{ font-size:1.7rem; font-family:'Fraunces',serif; font-weight:600; color:var(--brown-dark); }
+  .metric .l{ font-size:0.7rem; letter-spacing:0.3px; color:var(--muted); margin-top:3px; }
+
+  .empty{ font-size:0.84rem; color:var(--muted); font-style:italic; padding:16px 4px; }
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:4px; margin-bottom:18px; font-size:0.83rem; color:var(--muted);
+    text-decoration:none; transition:color .18s var(--ease);
+  }
+  .back-link:hover{ color:var(--black); }
+
+  footer{
+    text-align:center; font-size:0.74rem; color:var(--muted); padding:24px; position:relative; z-index:1;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  button:focus-visible, .tab:focus-visible, .role-opt:focus-visible, .opt-card:focus-visible, .module-tile:focus-visible{
+    outline:2px solid var(--brown); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead hidden" id="masthead">
+  <svg class="crest" viewBox="0 0 60 60" aria-hidden="true">
+    <circle cx="30" cy="30" r="27" fill="none" stroke="#7c5c42" stroke-width="2"/>
+    <path d="M18 34 L30 16 L42 34 Z" fill="none" stroke="#1c1a17" stroke-width="2"/>
+    <rect x="22" y="34" width="16" height="10" fill="none" stroke="#1c1a17" stroke-width="2"/>
+    <line x1="15" y1="44" x2="45" y2="44" stroke="#7c5c42" stroke-width="2"/>
+  </svg>
+  <div class="titles">
+    <h1>Gabinete de Informática</h1>
+    <p class="sub">Escuela Técnica N.º 14 · Sistema de Trámites</p>
+  </div>
+  <div class="session">
+    <span>Sesión iniciada</span>
+    <strong id="sessionName">—</strong>
+    <button class="logout" id="logoutBtn">Cerrar sesión</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== LOGIN ===================== -->
+  <section id="screen-login" class="login-wrap">
+    <div class="login-card">
+      <svg class="crest-big" viewBox="0 0 60 60" aria-hidden="true">
+        <circle cx="30" cy="30" r="27" fill="none" stroke="#7c5c42" stroke-width="2"/>
+        <path d="M18 34 L30 16 L42 34 Z" fill="none" stroke="#1c1a17" stroke-width="2"/>
+        <rect x="22" y="34" width="16" height="10" fill="none" stroke="#1c1a17" stroke-width="2"/>
+        <line x1="15" y1="44" x2="45" y2="44" stroke="#7c5c42" stroke-width="2"/>
+      </svg>
+      <h1>Gabinete de Informática</h1>
+      <p class="sub">Ficha de ingreso al sistema</p>
+
+      <div class="field">
+        <label for="inpName">Nombre y apellido</label>
+        <input type="text" id="inpName" placeholder="Ej: Martina Rodríguez" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>¿Cuál es tu rol?</label>
+        <div class="role-grid" id="roleGrid">
+          <button type="button" class="role-opt" data-role="alumno">Alumno/a</button>
+          <button type="button" class="role-opt" data-role="docente">Docente</button>
+          <button type="button" class="role-opt" data-role="preceptor">Preceptor/a</button>
+          <button type="button" class="role-opt" data-role="admin">Encargado de Gabinete</button>
+        </div>
+      </div>
+
+      <label class="demo-toggle">
+        <input type="checkbox" id="sancionCheck">
+        Simular cuenta con sanción pendiente (demo)
+      </label>
+
+      <p class="error-msg" id="loginError"></p>
+
+      <button class="btn wide" id="loginBtn">Ingresar</button>
+    </div>
+  </section>
+
+  <!-- ===================== DASHBOARD (alumno/docente/preceptor) ===================== -->
+  <section id="screen-dashboard" class="hidden">
+    <div class="id-strip">
+      <span>Menú principal</span>
+      <span class="pill" id="roleLabel">—</span>
+    </div>
+    <h2 style="margin-top:0;">¿Qué necesitás hacer hoy?</h2>
+    <div class="module-grid">
+      <button class="module-tile" data-go="m1">
+        <div class="num">Módulo 01</div>
+        <h3>Pedir computadoras</h3>
+        <p>Solicitá netbooks para tu curso: cantidad, especificaciones, fecha y horario.</p>
+      </button>
+      <button class="module-tile" data-go="m2">
+        <div class="num">Módulo 02</div>
+        <h3>Reservar aula o sala</h3>
+        <p>Consultá disponibilidad de laboratorios y espacios especiales, y hacé tu reserva.</p>
+      </button>
+      <button class="module-tile" data-go="m3">
+        <div class="num">Módulo 03</div>
+        <h3>Soporte técnico</h3>
+        <p>Reportá una falla, pedí insumos o solicitá un técnico en el aula.</p>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================== MODULE 1: SOLICITUD DE COMPUTADORAS ===================== -->
+  <section id="screen-m1" class="hidden">
+    <a href="#" class="back-link" data-back>← Volver al menú</a>
+    <div class="card">
+      <p class="eyebrow">Módulo 01 · Solicitud de equipos</p>
+      <h2>Pedir computadoras / netbooks</h2>
+      <p class="desc">Stock disponible en este momento: <b id="stockNow">—</b> equipos.</p>
+
+      <div id="m1-form">
+        <div class="row three">
+          <div class="field">
+            <label for="m1qty">Cantidad</label>
+            <input type="number" id="m1qty" min="1" max="40" value="5">
+          </div>
+          <div class="field">
+            <label for="m1spec">Especificación</label>
+            <select id="m1spec">
+              <option>Netbook estándar</option>
+              <option>Notebook con software de diseño</option>
+              <option>Indistinto</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="m1date">Fecha</label>
+            <input type="date" id="m1date">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="m1start">Hora inicio</label>
+            <input type="time" id="m1start" value="08:00">
+          </div>
+          <div class="field">
+            <label for="m1end">Hora fin</label>
+            <input type="time" id="m1end" value="09:30">
+          </div>
+        </div>
+        <div id="m1alert"></div>
+        <button class="btn" id="m1submit">Generar solicitud</button>
+      </div>
+
+      <div id="m1-result" class="hidden"></div>
+    </div>
+  </section>
+
+  <!-- ===================== MODULE 2: RESERVA DE AULAS ===================== -->
+  <section id="screen-m2" class="hidden">
+    <a href="#" class="back-link" data-back>← Volver al menú</a>
+    <div class="card">
+      <p class="eyebrow">Módulo 02 · Espacios físicos</p>
+      <h2>Reservar aula o sala</h2>
+      <p class="desc">Elegí el espacio que necesitás.</p>
+
+      <div class="opt-cards" id="aulaCards"></div>
+
+      <div id="m2-form" class="hidden">
+        <div class="row">
+          <div class="field">
+            <label for="m2date">Fecha</label>
+            <input type="date" id="m2date">
+          </div>
+          <div class="field">
+            <label for="m2turno">Turno / horario</label>
+            <select id="m2turno">
+              <option value="08:00-09:30">Módulo 1 · 08:00–09:30</option>
+              <option value="09:30-11:00">Módulo 2 · 09:30–11:00</option>
+              <option value="11:15-12:45">Módulo 3 · 11:15–12:45</option>
+              <option value="13:30-15:00">Módulo 4 · 13:30–15:00</option>
+              <option value="15:15-16:45">Módulo 5 · 15:15–16:45</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="m2motivo">Motivo / materia / recursos extra</label>
+          <textarea id="m2motivo" placeholder="Ej: Clase de Programación, necesito proyector"></textarea>
+        </div>
+        <div id="m2alert"></div>
+        <button class="btn" id="m2submit">Confirmar reserva</button>
+      </div>
+
+      <div id="m2-result" class="hidden"></div>
+    </div>
+  </section>
+
+  <!-- ===================== MODULE 3: SOPORTE TÉCNICO ===================== -->
+  <section id="screen-m3" class="hidden">
+    <a href="#" class="back-link" data-back>← Volver al menú</a>
+    <div class="card">
+      <p class="eyebrow">Módulo 03 · Asistencia</p>
+      <h2>Soporte técnico</h2>
+      <p class="desc">Elegí el tipo de ayuda que necesitás.</p>
+
+      <div class="opt-cards" id="m3cat"></div>
+
+      <div id="m3-form" class="hidden">
+        <div id="m3-fields"></div>
+        <div class="field">
+          <label for="m3desc">Descripción</label>
+          <textarea id="m3desc" placeholder="Contanos qué pasa, con el mayor detalle posible"></textarea>
+        </div>
+        <button class="btn" id="m3submit">Generar ticket</button>
+      </div>
+
+      <div id="m3-result" class="hidden"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ADMIN PANEL ===================== -->
+  <section id="screen-admin" class="hidden">
+    <div class="id-strip">
+      <span>Panel de administración</span>
+      <span class="pill">Gabinete</span>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="pendientes">Solicitudes</button>
+      <button class="tab" data-tab="aulas">Reservas de aulas</button>
+      <button class="tab" data-tab="devoluciones">Stock y devoluciones</button>
+      <button class="tab" data-tab="tickets">Tickets</button>
+      <button class="tab" data-tab="reportes">Reportes</button>
+    </div>
+    <div class="panel">
+
+      <div id="tab-pendientes">
+        <h3 style="margin-top:0;">Solicitudes de equipos</h3>
+        <div class="list" id="listPendientes"></div>
+      </div>
+
+      <div id="tab-aulas" class="hidden">
+        <h3 style="margin-top:0;">Reservas de aulas</h3>
+        <div class="list" id="listAulas"></div>
+      </div>
+
+      <div id="tab-devoluciones" class="hidden">
+        <h3 style="margin-top:0;">Registrar devolución de equipos</h3>
+        <p class="desc" style="margin-top:-8px;">Marcá como devueltos los equipos entregados para liberar stock.</p>
+        <div class="list" id="listDevoluciones"></div>
+      </div>
+
+      <div id="tab-tickets" class="hidden">
+        <h3 style="margin-top:0;">Tickets de soporte</h3>
+        <div class="list" id="listTickets"></div>
+      </div>
+
+      <div id="tab-reportes" class="hidden">
+        <h3 style="margin-top:0;">Métricas generales</h3>
+        <div class="metric-grid" id="metricGrid"></div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>Prototipo estudiantil — Sistema de Gabinete de Informática · los datos se reinician al recargar la página</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- "Base de datos" en memoria ---------------- */
+  const state = {
+    user: null, // {name, role, sancionado}
+    stockTotal: 40,
+    aulas: [
+      {id:'lab1', nombre:'Laboratorio 1', capacidad:30, equip:'PC de escritorio, proyector'},
+      {id:'lab2', nombre:'Laboratorio 2', capacidad:24, equip:'Notebooks móviles'},
+      {id:'multi', nombre:'Aula Multimedia', capacidad:40, equip:'Proyector, sonido'},
+      {id:'bib', nombre:'Biblioteca — Sala de lectura', capacidad:20, equip:'Mesas grupales'},
+      {id:'sum', nombre:'SUM', capacidad:80, equip:'Escenario, sonido'}
+    ],
+    reservasAulas: [],   // {id, aula, fecha, turno, usuario, motivo, estado}
+    reservasEquipos: [], // {id, usuario, cantidad, spec, fecha, inicio, fin, estado}
+    tickets: [],         // {id, usuario, categoria, detalle, prioridad, estado}
+    counter: 1000
+  };
+
+  function nextCode(prefix){
+    state.counter++;
+    return prefix + '-' + state.counter;
+  }
+
+  function equiposComprometidos(fecha, inicio, fin){
+    return state.reservasEquipos
+      .filter(r => r.estado !== 'Rechazado' && r.fecha === fecha && solapa(inicio, fin, r.inicio, r.fin))
+      .reduce((sum, r) => sum + r.cantidad, 0);
+  }
+
+  function solapa(iniA, finA, iniB, finB){
+    return iniA < finB && iniB < finA;
+  }
+
+  /* ---------------- Navegación entre pantallas ---------------- */
+  const screens = ['screen-login','screen-dashboard','screen-m1','screen-m2','screen-m3','screen-admin'];
+  function show(id){
+    screens.forEach(s => document.getElementById(s).classList.toggle('hidden', s !== id));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* ---------------- LOGIN ---------------- */
+  let selectedRole = null;
+  const roleGrid = document.getElementById('roleGrid');
+  roleGrid.addEventListener('click', e => {
+    const btn = e.target.closest('.role-opt');
+    if(!btn) return;
+    [...roleGrid.children].forEach(c => c.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedRole = btn.dataset.role;
+  });
+
+  document.getElementById('loginBtn').addEventListener('click', () => {
+    const name = document.getElementById('inpName').value.trim();
+    const errEl = document.getElementById('loginError');
+    if(!name){ errEl.textContent = 'Ingresá tu nombre y apellido.'; return; }
+    if(!selectedRole){ errEl.textContent = 'Elegí un rol para continuar.'; return; }
+    errEl.textContent = '';
+
+    state.user = {
+      name,
+      role: selectedRole,
+      sancionado: document.getElementById('sancionCheck').checked
+    };
+
+    document.getElementById('sessionName').textContent = name + ' · ' + roleName(selectedRole);
+    document.getElementById('masthead').classList.remove('hidden');
+
+    if(selectedRole === 'admin'){
+      renderAdmin();
+      show('screen-admin');
+    } else {
+      document.getElementById('roleLabel').textContent = roleName(selectedRole);
+      show('screen-dashboard');
+    }
+  });
+
+  function roleName(r){
+    return {alumno:'Alumno/a', docente:'Docente', preceptor:'Preceptor/a', admin:'Encargado de Gabinete'}[r] || r;
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    state.user = null;
+    document.getElementById('masthead').classList.add('hidden');
+    document.getElementById('inpName').value = '';
+    document.getElementById('sancionCheck').checked = false;
+    selectedRole = null;
+    [...roleGrid.children].forEach(c => c.classList.remove('selected'));
+    document.getElementById('loginError').textContent = '';
+    resetModuleForms();
+    show('screen-login');
+  });
+
+  /* ---------------- Dashboard → módulos ---------------- */
+  document.querySelectorAll('.module-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const dest = 'screen-' + tile.dataset.go;
+      if(tile.dataset.go === 'm1') prepM1();
+      if(tile.dataset.go === 'm2') prepM2();
+      if(tile.dataset.go === 'm3') prepM3();
+      show(dest);
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      show('screen-dashboard');
+    });
+  });
+
+  function resetModuleForms(){
+    document.getElementById('m1-form').classList.remove('hidden');
+    document.getElementById('m1-result').classList.add('hidden');
+    document.getElementById('m2-result').classList.add('hidden');
+    document.getElementById('m3-result').classList.add('hidden');
+  }
+
+  /* ---------------- MÓDULO 1: Computadoras ---------------- */
+  function prepM1(){
+    document.getElementById('m1-form').classList.remove('hidden');
+    document.getElementById('m1-result').classList.add('hidden');
+    document.getElementById('m1alert').innerHTML = '';
+    const today = new Date().toISOString().slice(0,10);
+    document.getElementById('m1date').value = today;
+    updateStockLabel();
+  }
+
+  function updateStockLabel(){
+    document.getElementById('stockNow').textContent = state.stockTotal;
+  }
+
+  document.getElementById('m1submit').addEventListener('click', () => {
+    const qty = parseInt(document.getElementById('m1qty').value, 10) || 0;
+    const spec = document.getElementById('m1spec').value;
+    const fecha = document.getElementById('m1date').value;
+    const inicio = document.getElementById('m1start').value;
+    const fin = document.getElementById('m1end').value;
+    const alertBox = document.getElementById('m1alert');
+    alertBox.innerHTML = '';
+
+    if(!fecha || !inicio || !fin || qty < 1){
+      alertBox.innerHTML = '<div class="alert bad">Completá todos los campos antes de continuar.</div>';
+      return;
+    }
+    if(inicio >= fin){
+      alertBox.innerHTML = '<div class="alert bad">La hora de fin debe ser posterior a la hora de inicio.</div>';
+      return;
+    }
+
+    const comprometidos = equiposComprometidos(fecha, inicio, fin);
+    const disponibles = state.stockTotal - comprometidos;
+
+    if(qty > disponibles){
+      alertBox.innerHTML = `<div class="alert bad">No hay stock disponible en ese horario (quedan ${Math.max(disponibles,0)} equipos libres). Probá con otra franja horaria o reducí la cantidad.</div>`;
+      return;
+    }
+
+    if(state.user.sancionado){
+      alertBox.innerHTML = '<div class="alert bad">Tu cuenta tiene una sanción pendiente. No podés generar nuevas solicitudes hasta regularizar tu situación con el gabinete.</div>';
+      return;
+    }
+
+    const id = nextCode('EQ');
+    state.reservasEquipos.push({
+      id, usuario: state.user.name, cantidad: qty, spec, fecha, inicio, fin, estado: 'Pendiente'
+    });
+
+    document.getElementById('m1-form').classList.add('hidden');
+    const res = document.getElementById('m1-result');
+    res.classList.remove('hidden');
+    res.innerHTML = `
+      <div class="ticket">
+        <p class="desc">Solicitud enviada al encargado de gabinete para su aprobación.</p>
+        <div class="code mono">${id}</div><br>
+        <div class="stamp pending">Pendiente</div>
+        <p class="desc" style="margin-top:16px;">${qty} equipo(s) · ${spec} · ${fecha} de ${inicio} a ${fin}</p>
+        <button class="btn ghost small" data-back>Volver al menú</button>
+      </div>`;
+    res.querySelector('[data-back]').addEventListener('click', () => show('screen-dashboard'));
+  });
+
+  /* ---------------- MÓDULO 2: Aulas ---------------- */
+  let m2SelectedAula = null;
+
+  function prepM2(){
+    m2SelectedAula = null;
+    document.getElementById('m2-form').classList.add('hidden');
+    document.getElementById('m2-result').classList.add('hidden');
+    document.getElementById('m2date').value = new Date().toISOString().slice(0,10);
+    const wrap = document.getElementById('aulaCards');
+    wrap.innerHTML = '';
+    state.aulas.forEach(a => {
+      const div = document.createElement('button');
+      div.className = 'opt-card';
+      div.type = 'button';
+      div.innerHTML = `<b>${a.nombre}</b><small>Capacidad ${a.capacidad} · ${a.equip}</small>`;
+      div.addEventListener('click', () => {
+        [...wrap.children].forEach(c => c.classList.remove('selected'));
+        div.classList.add('selected');
+        m2SelectedAula = a;
+        document.getElementById('m2-form').classList.remove('hidden');
+        document.getElementById('m2alert').innerHTML = '';
+      });
+      wrap.appendChild(div);
+    });
+  }
+
+  document.getElementById('m2submit').addEventListener('click', () => {
+    const alertBox = document.getElementById('m2alert');
+    alertBox.innerHTML = '';
+    if(!m2SelectedAula){ alertBox.innerHTML = '<div class="alert bad">Elegí un aula primero.</div>'; return; }
+    const fecha = document.getElementById('m2date').value;
+    const turno = document.getElementById('m2turno').value;
+    const motivo = document.getElementById('m2motivo').value.trim();
+    if(!fecha){ alertBox.innerHTML = '<div class="alert bad">Elegí una fecha.</div>'; return; }
+
+    const ocupada = state.reservasAulas.some(r =>
+      r.aula === m2SelectedAula.id && r.fecha === fecha && r.turno === turno && r.estado !== 'Rechazada');
+
+    if(ocupada){
+      alertBox.innerHTML = '<div class="alert bad">Esa aula ya está ocupada en el horario elegido. Probá otro turno u otro espacio.</div>';
+      return;
+    }
+
+    const id = nextCode('AU');
+    state.reservasAulas.push({
+      id, aula: m2SelectedAula.id, aulaNombre: m2SelectedAula.nombre, fecha, turno,
+      usuario: state.user.name, motivo, estado: 'Confirmada'
+    });
+
+    document.getElementById('m2-form').classList.add('hidden');
+    const res = document.getElementById('m2-result');
+    res.classList.remove('hidden');
+    res.innerHTML = `
+      <div class="ticket">
+        <p class="desc">Reserva registrada. Se envió una confirmación a tu correo institucional.</p>
+        <div class="code mono">${id}</div><br>
+        <div class="stamp">Confirmada</div>
+        <p class="desc" style="margin-top:16px;">${m2SelectedAula.nombre} · ${fecha} · ${turno}</p>
+        <button class="btn ghost small" data-back>Volver al menú</button>
+      </div>`;
+    res.querySelector('[data-back]').addEventListener('click', () => show('screen-dashboard'));
+  });
+
+  /* ---------------- MÓDULO 3: Soporte técnico ---------------- */
+  const m3categorias = [
+    {id:'falla', label:'Falla de hardware o software', small:'La PC no enciende, error de sistema, etc.'},
+    {id:'clase', label:'Asistencia en clase', small:'Necesito un técnico presente en el aula'},
+    {id:'insumo', label:'Insumos', small:'Proyector, cables, adaptadores, etc.'}
+  ];
+  let m3SelectedCat = null;
+
+  function prepM3(){
+    m3SelectedCat = null;
+    document.getElementById('m3-form').classList.add('hidden');
+    document.getElementById('m3-result').classList.add('hidden');
+    const wrap = document.getElementById('m3cat');
+    wrap.innerHTML = '';
+    m3categorias.forEach(c => {
+      const div = document.createElement('button');
+      div.type = 'button'; div.className = 'opt-card';
+      div.innerHTML = `<b>${c.label}</b><small>${c.small}</small>`;
+      div.addEventListener('click', () => {
+        [...wrap.children].forEach(x => x.classList.remove('selected'));
+        div.classList.add('selected');
+        m3SelectedCat = c;
+        renderM3Fields();
+        document.getElementById('m3-form').classList.remove('hidden');
+      });
+      wrap.appendChild(div);
+    });
+  }
+
+  function renderM3Fields(){
+    const fieldsWrap = document.getElementById('m3-fields');
+    if(m3SelectedCat.id === 'falla'){
+      fieldsWrap.innerHTML = `
+        <div class="field">
+          <label for="m3equipo">N.º de equipo (si lo conocés)</label>
+          <input type="text" id="m3equipo" placeholder="Ej: PC-014">
+        </div>`;
+    } else if(m3SelectedCat.id === 'clase'){
+      fieldsWrap.innerHTML = `
+        <div class="field">
+          <label for="m3aula">Aula donde se necesita al técnico</label>
+          <input type="text" id="m3aula" placeholder="Ej: Laboratorio 1">
+        </div>`;
+    } else {
+      fieldsWrap.innerHTML = `
+        <div class="field">
+          <label for="m3insumo">Insumo requerido</label>
+          <select id="m3insumo">
+            <option>Proyector</option>
+            <option>Cable HDMI / VGA</option>
+            <option>Adaptador de corriente</option>
+            <option>Mouse / teclado</option>
+            <option>Otro (detallar abajo)</option>
+          </select>
+        </div>`;
+    }
+  }
+
+  document.getElementById('m3submit').addEventListener('click', () => {
+    if(!m3SelectedCat) return;
+    const detalleExtra = m3SelectedCat.id === 'falla' ? (document.getElementById('m3equipo').value || 'sin especificar')
+      : m3SelectedCat.id === 'clase' ? (document.getElementById('m3aula').value || 'sin especificar')
+      : document.getElementById('m3insumo').value;
+    const desc = document.getElementById('m3desc').value.trim();
+
+    const prioridad = m3SelectedCat.id === 'clase' ? 'Alta' : (m3SelectedCat.id === 'falla' ? 'Media' : 'Baja');
+    const id = nextCode('TK');
+    state.tickets.push({
+      id, usuario: state.user.name, categoria: m3SelectedCat.label, ref: detalleExtra,
+      detalle: desc, prioridad, estado: 'Abierto'
+    });
+
+    document.getElementById('m3-form').classList.add('hidden');
+    const res = document.getElementById('m3-result');
+    res.classList.remove('hidden');
+    res.innerHTML = `
+      <div class="ticket">
+        <p class="desc">Ticket generado y asignado al personal técnico.</p>
+        <div class="code mono">${id}</div><br>
+        <div class="stamp pending">Prioridad ${prioridad}</div>
+        <p class="desc" style="margin-top:16px;">${m3SelectedCat.label} — ${detalleExtra}</p>
+        <button class="btn ghost small" data-back>Volver al menú</button>
+      </div>`;
+    res.querySelector('[data-back]').addEventListener('click', () => show('screen-dashboard'));
+  });
+
+  /* ---------------- PANEL DE ADMINISTRACIÓN ---------------- */
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      ['pendientes','aulas','devoluciones','tickets','reportes'].forEach(k => {
+        document.getElementById('tab-' + k).classList.toggle('hidden', k !== tab.dataset.tab);
+      });
+    });
+  });
+
+  function renderAdmin(){
+    renderPendientes();
+    renderAulasAdmin();
+    renderDevoluciones();
+    renderTickets();
+    renderReportes();
+  }
+
+  function renderPendientes(){
+    const wrap = document.getElementById('listPendientes');
+    const items = state.reservasEquipos.filter(r => r.estado === 'Pendiente');
+    if(!items.length){ wrap.innerHTML = '<p class="empty">No hay solicitudes de equipos pendientes.</p>'; return; }
+    wrap.innerHTML = '';
+    items.forEach(r => {
+      const row = document.createElement('div');
+      row.className = 'list-row';
+      row.innerHTML = `
+        <div class="main">
+          <b>${r.id} — ${r.usuario}</b>
+          <span>${r.cantidad} equipo(s) · ${r.spec} · ${r.fecha} ${r.inicio}–${r.fin}</span>
+        </div>
+        <span class="status pendiente">Pendiente</span>
+        <div class="row-actions">
+          <button class="btn small" data-act="aprobar">Aprobar</button>
+          <button class="btn small ghost" data-act="rechazar">Rechazar</button>
+        </div>`;
+      row.querySelector('[data-act="aprobar"]').addEventListener('click', () => {
+        r.estado = 'Aprobado'; renderPendientes(); renderDevoluciones(); renderReportes();
+      });
+      row.querySelector('[data-act="rechazar"]').addEventListener('click', () => {
+        r.estado = 'Rechazado'; renderPendientes(); renderReportes();
+      });
+      wrap.appendChild(row);
+    });
+  }
+
+  function renderAulasAdmin(){
+    const wrap = document.getElementById('listAulas');
+    if(!state.reservasAulas.length){ wrap.innerHTML = '<p class="empty">Todavía no hay reservas de aulas.</p>'; return; }
+    wrap.innerHTML = '';
+    [...state.reservasAulas].reverse().forEach(r => {
+      const row = document.createElement('div');
+      row.className = 'list-row';
+      row.innerHTML = `
+        <div class="main">
+          <b>${r.id} — ${r.aulaNombre}</b>
+          <span>${r.usuario} · ${r.fecha} · ${r.turno}${r.motivo ? ' · ' + r.motivo : ''}</span>
+        </div>
+        <span class="status confirmada">Confirmada</span>`;
+      wrap.appendChild(row);
+    });
+  }
+
+  function renderDevoluciones(){
+    const wrap = document.getElementById('listDevoluciones');
+    const items = state.reservasEquipos.filter(r => r.estado === 'Aprobado' || r.estado === 'Entregado');
+    if(!items.length){ wrap.innerHTML = '<p class="empty">No hay equipos entregados en este momento.</p>'; return; }
+    wrap.innerHTML = '';
+    items.forEach(r => {
+      const row = document.createElement('div');
+      row.className = 'list-row';
+      row.innerHTML = `
+        <div class="main">
+          <b>${r.id} — ${r.usuario}</b>
+          <span>${r.cantidad} equipo(s) · ${r.fecha} ${r.inicio}–${r.fin}</span>
+        </div>
+        <span class="status ${r.estado === 'Entregado' ? 'entregado' : 'en-uso'}">${r.estado === 'Entregado' ? 'Devuelto' : 'En uso'}</span>
+        <div class="row-actions">
+          ${r.estado === 'Aprobado' ? '<button class="btn small" data-act="devolver">Registrar devolución</button>' : ''}
+        </div>`;
+      const actBtn = row.querySelector('[data-act="devolver"]');
+      if(actBtn){
+        actBtn.addEventListener('click', () => {
+          r.estado = 'Entregado'; renderDevoluciones(); renderReportes();
+        });
+      }
+      wrap.appendChild(row);
+    });
+  }
+
+  function renderTickets(){
+    const wrap = document.getElementById('listTickets');
+    if(!state.tickets.length){ wrap.innerHTML = '<p class="empty">No hay tickets de soporte cargados.</p>'; return; }
+    wrap.innerHTML = '';
+    [...state.tickets].reverse().forEach(t => {
+      const row = document.createElement('div');
+      row.className = 'list-row';
+      row.innerHTML = `
+        <div class="main">
+          <b>${t.id} — ${t.categoria}</b>
+          <span>${t.usuario} · Prioridad ${t.prioridad} · ${t.ref}${t.detalle ? ' · ' + t.detalle : ''}</span>
+        </div>
+        <span class="status ${t.estado === 'Resuelto' ? 'resuelto' : (t.estado === 'En proceso' ? 'en-proceso' : 'pendiente')}">${t.estado}</span>
+        <div class="row-actions">
+          ${t.estado !== 'Resuelto' ? '<button class="btn small" data-act="avanzar">Avanzar</button>' : ''}
+        </div>`;
+      const actBtn = row.querySelector('[data-act="avanzar"]');
+      if(actBtn){
+        actBtn.addEventListener('click', () => {
+          t.estado = t.estado === 'Abierto' ? 'En proceso' : 'Resuelto';
+          renderTickets(); renderReportes();
+        });
+      }
+      wrap.appendChild(row);
+    });
+  }
+
+  function renderReportes(){
+    const wrap = document.getElementById('metricGrid');
+    const totalEquipos = state.reservasEquipos.length;
+    const pendientesEquipos = state.reservasEquipos.filter(r => r.estado === 'Pendiente').length;
+    const enUso = state.reservasEquipos.filter(r => r.estado === 'Aprobado').length;
+    const reservasAulas = state.reservasAulas.length;
+    const ticketsAbiertos = state.tickets.filter(t => t.estado !== 'Resuelto').length;
+    const ticketsResueltos = state.tickets.filter(t => t.estado === 'Resuelto').length;
+
+    const metrics = [
+      [totalEquipos, 'Solicitudes de equipos'],
+      [pendientesEquipos, 'Pendientes de aprobar'],
+      [enUso, 'Equipos en uso'],
+      [reservasAulas, 'Reservas de aulas'],
+      [ticketsAbiertos, 'Tickets abiertos'],
+      [ticketsResueltos, 'Tickets resueltos']
+    ];
+    wrap.innerHTML = metrics.map(([n,l]) => `<div class="metric"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+  }
+
+})();
+</script>
+</body>
+</html>
